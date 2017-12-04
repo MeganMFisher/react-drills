@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      filtered: '',
+      cities: ['Boston', 'Anchorage', 'London', 'Zurich', 'Salzburg', 'Munich', 'El Paso']
+    }
+  }
+
+  handleChange(e) {
+    this.setState({
+      filtered: e
+    })
+  }
+
   render() {
+    const cityList = this.state.cities.filter((e, i) => e.includes(this.state.filtered)).map((e, i) => <div key={i}><h1>{e}</h1></div>)
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <input onChange={e => this.handleChange(e.target.value)}/>
+        {cityList}
       </div>
     );
   }
